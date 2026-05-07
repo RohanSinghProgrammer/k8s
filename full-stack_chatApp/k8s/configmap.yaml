@@ -8,4 +8,5 @@ data:
   frontend_port: "80"
   backend_port: "5001"
   mongo_uri: "mongodb://mongoadmin:secret@mongodb:27017/chat-app-db?authSource=admin"
+  mongo_username: "mongoadmin"
   

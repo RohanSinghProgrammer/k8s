@@ -25,9 +25,15 @@ spec:
             - containerPort: 27017
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: mongoadmin
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: node_envmongo_username
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: secret
+              valueFrom:
+                secretKeyRef:
+                  name: chat-app-secret
+                  key: mongo_password
       volumes:
       - name: mongo-data
         persistentVolumeClaim:
