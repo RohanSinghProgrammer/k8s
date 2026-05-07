@@ -19,18 +19,30 @@ spec:
         - name: chat-app-backend
           image: ayushayush/chat-app-backend
           resources:
-            limits:
+            requests:
               memory: "128Mi"
-              cpu: "500m"
+              cpu: "256m"
+            limits:
+              memory: "256Mi"
+              cpu: "512m"
           ports:
             - containerPort: 5001
           env:
             - name: PORT
-              value: "5001"
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: backend_port
             - name: NODE_ENV
-              value: production
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: node_env
             - name: MONGODB_URI
-              value: "mongodb://mongoadmin:secret@mongodb:27017/chat-app-db?authSource=admin"
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: mongo_uri
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
